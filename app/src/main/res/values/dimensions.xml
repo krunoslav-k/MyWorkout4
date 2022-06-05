@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="big_distance">60dp</dimen>
+    <dimen name="L_distance">40dp</dimen>
+    <dimen name="M_distance">30dp</dimen>
+    <dimen name="S_distance">22dp</dimen>
+    <dimen name="XS_distance">4dp</dimen>
+    <dimen name="M_indentation">24dp</dimen>
+    <dimen name="logWorkoutButton_size">168dp</dimen>
+    <dimen name="logWorkoutButton_indentation">44dp</dimen>
+    <dimen name="M_distance_reduced">28dp</dimen>
+    <dimen name="inputBox_indentation">58dp</dimen>
+    <dimen name="inputBox_padding_top">2dp</dimen>
+    <dimen name="inputBox_padding_right">10dp</dimen>
+    <dimen name="inputBox_height">26dp</dimen>
+    <dimen name="inputBox_width">140dp</dimen>
+    <dimen name="exerciseImage_size">50dp</dimen>
+</resources>

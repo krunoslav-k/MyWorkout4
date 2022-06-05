@@ -24,27 +24,5 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         bottomNavigationView.setupWithNavController(navController)
-
-
-
-        //test
-        // Create a new user with a first and last name
-        val profile = hashMapOf(
-            "age" to 27,
-            "calorieIntake" to 2240,
-            "gender" to "male",
-            "height" to 189,
-            "weight" to 99
-        )
-
-// Add a new document with a generated ID
-        db.collection("profiles")
-            .add(profile)
-            .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
-            }
     }
 }

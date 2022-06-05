@@ -1,14 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".profileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <EditText
+        android:id="@+id/age_etnum"
+        android:layout_width="@dimen/inputBox_width"
+        android:layout_height="@dimen/inputBox_height"
+        android:layout_marginTop="@dimen/M_distance"
+        android:layout_marginEnd="@dimen/inputBox_indentation"
+        android:background="@drawable/textinputborder"
+        android:ems="10"
+        android:fontFamily="@font/poppins"
+        android:hint="@string/enterAge"
+        android:inputType="number"
+        android:paddingTop="@dimen/inputBox_padding_top"
+        android:paddingRight="@dimen/inputBox_padding_right"
+        android:textAlignment="viewEnd"
+        android:textColor="@color/gray_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gender_tv" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/height_etnum"
+        android:layout_width="@dimen/inputBox_width"
+        android:layout_height="@dimen/inputBox_height"
+        android:layout_marginTop="@dimen/M_distance_reduced"
+        android:layout_marginEnd="@dimen/inputBox_indentation"
+        android:background="@drawable/textinputborder"
+        android:ems="10"
+        android:fontFamily="More Fonts..."
+        android:hint="@string/enterHeight"
+        android:inputType="number"
+        android:paddingTop="@dimen/inputBox_padding_top"
+        android:paddingRight="@dimen/inputBox_padding_right"
+        android:textAlignment="viewEnd"
+        android:textColor="@color/gray_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weight_tv" />
+
+
+    <EditText
+        android:id="@+id/caloriesIntake_etnum"
+        android:layout_width="@dimen/inputBox_width"
+        android:layout_height="@dimen/inputBox_height"
+        android:layout_marginTop="@dimen/M_indentation"
+        android:layout_marginEnd="@dimen/inputBox_indentation"
+        android:background="@drawable/textinputborder"
+        android:ems="10"
+        android:fontFamily="@font/poppins"
+        android:hint="@string/enterCalories"
+        android:inputType="number"
+        android:paddingTop="@dimen/inputBox_padding_top"
+        android:paddingRight="@dimen/inputBox_padding_right"
+        android:textAlignment="viewEnd"
+        android:textColor="@color/gray_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/age_tv" />
+
+    <TextView
+        android:id="@+id/profile_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/M_indentation"
+        android:layout_marginTop="@dimen/big_distance"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/profile_title"
+        android:textColor="@color/gray_blue"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/profilePicture_iv"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="@dimen/M_indentation"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_tv"
+        app:srcCompat="@drawable/user_icon" />
+
+    <TextView
+        android:id="@+id/username_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/username"
+        android:textColor="@color/gray_blue"
+        app:layout_constraintStart_toEndOf="@+id/profilePicture_iv"
+        app:layout_constraintTop_toBottomOf="@+id/profile_tv" />
+
+    <TextView
+        android:id="@+id/numOfWorkouts_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/numOfWorkouts"
+        app:layout_constraintStart_toEndOf="@+id/profilePicture_iv"
+        app:layout_constraintTop_toBottomOf="@+id/username_tv" />
+
+    <TextView
+        android:id="@+id/workouts_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="@string/workouts"
+        app:layout_constraintStart_toEndOf="@+id/numOfWorkouts_tv"
+        app:layout_constraintTop_toBottomOf="@+id/username_tv" />
+
+    <TextView
+        android:id="@+id/weight_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/M_indentation"
+        android:layout_marginTop="@dimen/M_distance"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/weight"
+        android:textColor="@color/gray_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profilePicture_iv" />
+
+    <ImageView
+        android:id="@+id/settingsIcon_iv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="62dp"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_tv"
+        app:srcCompat="@drawable/settings_icon" />
+
+    <TextView
+        android:id="@+id/height_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/M_indentation"
+        android:layout_marginTop="@dimen/M_distance"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/height"
+        android:textColor="@color/gray_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weight_tv" />
+
+    <TextView
+        android:id="@+id/gender_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/M_indentation"
+        android:layout_marginTop="@dimen/M_distance"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/gender"
+        android:textColor="@color/gray_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/height_tv" />
+
+    <TextView
+        android:id="@+id/estimatedDailyCalorieIntake_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/M_indentation"
+        android:layout_marginTop="@dimen/M_distance"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/estimatedDailyCalorieIntake"
+        android:textColor="@color/gray_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/age_tv" />
+
+    <TextView
+        android:id="@+id/age_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/M_indentation"
+        android:layout_marginTop="@dimen/M_distance"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/age"
+        android:textColor="@color/gray_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gender_tv" />
+
+    <TextView
+        android:id="@+id/kg_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/M_distance"
+        android:layout_marginEnd="@dimen/M_indentation"
+        android:fontFamily="@font/poppins"
+        android:text="@string/kg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profilePicture_iv" />
+
+    <TextView
+        android:id="@+id/cm_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/M_distance"
+        android:layout_marginEnd="@dimen/M_indentation"
+        android:fontFamily="@font/poppins"
+        android:text="@string/cm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weight_tv" />
+
+    <TextView
+        android:id="@+id/kCal_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/M_distance"
+        android:layout_marginEnd="@dimen/M_indentation"
+        android:fontFamily="@font/poppins"
+        android:text="@string/kCal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/age_tv" />
+
+    <EditText
+        android:id="@+id/weight_etnum"
+        android:layout_width="@dimen/inputBox_width"
+        android:layout_height="@dimen/inputBox_height"
+        android:layout_marginTop="@dimen/M_distance_reduced"
+        android:layout_marginEnd="@dimen/inputBox_indentation"
+        android:background="@drawable/textinputborder"
+        android:ems="10"
+        android:fontFamily="@font/poppins"
+        android:hint="@string/enterWeight"
+        android:inputType="number"
+        android:paddingTop="@dimen/inputBox_padding_top"
+        android:paddingRight="@dimen/inputBox_padding_right"
+        android:textAlignment="viewEnd"
+        android:textColor="@color/gray_blue"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profilePicture_iv" />
+
+    <Button
+        android:id="@+id/saveChanges_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/saveChanges"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/estimatedDailyCalorieIntake_tv"
+        android:background="@color/dark_blue"/>
+
+    <RadioGroup
+        android:id="@+id/gender_rg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="@dimen/inputBox_indentation"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/height_tv">
+
+        <RadioButton
+            android:id="@+id/male_rb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/male" />
+
+        <RadioButton
+            android:id="@+id/female_rb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/female" />
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

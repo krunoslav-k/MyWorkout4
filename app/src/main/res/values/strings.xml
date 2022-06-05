@@ -1,5 +1,50 @@
 <resources>
-    <string name="app_name">MyWorkout4</string>
+    <string name="app_name">MyWorkout</string>
+    <string name="profile_title">Profile</string>
+    <string name="logWorkout_title">Log Workout</string>
+    <string name="logWorkout_subtitle">Log your new workout</string>
+    <string name="repetitiveStrengthWorkout">Repetitive Strength Workout</string>
+    <string name="timedStrengthWorkout">Timed Strength Workout</string>
+    <string name="cardio">Cardio</string>
+    <string name="stretching">Stretching</string>
+
+    <!-- PROFILE FRAGMENT -->
+    <string name="username">username</string>
+    <string name="numOfWorkouts">0</string>
+    <string name="workouts">workouts</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="gender">Gender</string>
+    <string name="dateOfBirth">Date of birth</string>
+    <string name="age">Age</string>
+    <string name="bodyFatPercentage">Body fat percentage</string>
+    <string name="muslcePercentage">Muscle percentage</string>
+    <string name="estimatedDailyCalorieIntake">Calorie intake</string>
+    <string name="kg">kg</string>
+    <string name="cm">cm</string>
+    <string name="percentageSign">%</string>
+    <string name="kCal">kCal</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="enterWeight">enter weight</string>
+    <string name="enterHeight">enter height</string>
+    <string name="enterAge">enter age</string>
+    <string name="enterBodyFatPercentage">enter body fat percentage</string>
+    <string name="enterMusclePercentage">enter muscle percentage</string>
+    <string name="enterCalories">enter estimated daily calorie intake</string>
+
+    <!-- EXERCISES FRAGMENT -->
+    <string name="crunches">Crunches</string>
+    <string name="abs">Abs</string>
+
+    <!-- MENU -->
+    <string name="profile">Profile</string>
+    <string name="history">History</string>
+    <string name="logWorkout">Log Workout</string>
+    <string name="exercises">Exercises</string>
+    <string name="information">Information</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="saveChanges">Save changes</string>
 </resources>
