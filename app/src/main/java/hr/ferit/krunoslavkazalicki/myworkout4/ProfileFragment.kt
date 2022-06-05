@@ -1,59 +1,65 @@
 package hr.ferit.krunoslavkazalicki.myworkout4
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.RadioGroup
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [profileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class profileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    val db = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        val weightEditText = view.findViewById<EditText>(R.id.weight_etnum)
+        val heightEditText = view.findViewById<EditText>(R.id.height_etnum)
+        val genderRadioGroup = view.findViewById<RadioGroup>(R.id.gender_rg)
+        val ageEditText = view.findViewById<EditText>(R.id.age_etnum)
+        val calorieIntakeEditText =  view.findViewById<EditText>(R.id.caloriesIntake_etnum)
+        val saveChangesButton = view.findViewById<Button>(R.id.saveChanges_btn)
+
+        saveChangesButton.setOnClickListener {
+
+            var weight = weightEditText.text.toString().toInt()
+            var height = heightEditText.text.toString().toInt()
+            var gender = "male"
+            var age = ageEditText.text.toString().toInt()
+            val calorieIntake = calorieIntakeEditText.text.toString().toInt()
+
+            val profile = hashMapOf(
+                "weight" to weight,
+                "height" to height,
+                "gender" to gender,
+                "age" to age,
+                "calorieIntake" to calorieIntake
+            )
+
+            // Add a new document with a generated ID
+            db.collection("profiles")
+                .add(profile)
+                .addOnSuccessListener { documentReference ->
+                    Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error adding document", e)
+                }
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment profileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            profileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }
