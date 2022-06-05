@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Profile"
+        android:icon="@drawable/profile_icon"
+        android:id="@+id/profileFragment"/>
+    <item android:title="Log"
+        android:icon="@drawable/plus_icon"
+        android:id="@+id/logFragment"/>
+    <item android:title="History"
+        android:icon="@drawable/history_icon"
+        android:id="@+id/historyFragment"/>
+</menu>
