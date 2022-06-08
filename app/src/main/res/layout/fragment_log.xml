@@ -1,14 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".logFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="log fragment" />
+    <RadioGroup
+        android:id="@+id/muscleGroup_rg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <RadioButton
+            android:id="@+id/arms_rb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Arms" />
+
+        <RadioButton
+            android:id="@+id/legs_rb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Legs" />
+
+        <RadioButton
+            android:id="@+id/upperBody_rb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upper body" />
+
+        <RadioButton
+            android:id="@+id/lowerBody_rb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lower body" />
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/duration_etnum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="@dimen/M_distance"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="duration (mins)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/muscleGroup_rg" />
+
+    <EditText
+        android:id="@+id/intensity_etnum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="intensity (1-10)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/duration_etnum" />
+
+    <Button
+        android:id="@+id/logWorkout_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:text="log workout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/intensity_etnum" />
+</androidx.constraintlayout.widget.ConstraintLayout>
