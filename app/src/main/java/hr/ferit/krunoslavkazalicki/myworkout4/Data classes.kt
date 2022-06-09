@@ -14,10 +14,10 @@ enum class MuscleGroup {
 data class Profile(
     var height: Int,
     var weight: Int,
-    val age: Int = 0,
-    val gender: Gender = Gender.MALE,
-    val calorieIntake: Int = 0,
-    val timestamp: Date = Date(1990, 1, 1)
+    var age: Int = 0,
+    var gender: Gender = Gender.MALE,
+    var calorieIntake: Int = 0,
+    var timestamp: Date = Date(1990, 1, 1)
 )
 
 data class Workout(

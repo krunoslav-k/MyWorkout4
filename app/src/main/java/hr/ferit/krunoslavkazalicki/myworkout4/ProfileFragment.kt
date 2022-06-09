@@ -17,6 +17,7 @@ import com.google.firebase.firestore.ktx.getField
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.*
 
 
@@ -37,31 +38,26 @@ class profileFragment : Fragment() {
         val calorieIntakeEditText =  view.findViewById<EditText>(R.id.caloriesIntake_etnum)
         val saveChangesButton = view.findViewById<Button>(R.id.saveChanges_btn)
 
-
-        //var rndWeight = ""
         var currentProfile = Profile(0, 30, 0, Gender.MALE, 0, Date(1990, 1, 1))
-        db.collection("profile")
-            //.orderBy("timestamp", Query.Direction.DESCENDING).limit(1)
+        db.collection("profiles")
+            .orderBy("timestamp", Query.Direction.DESCENDING).limit(1)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
                     Log.d(TAG, "${document.id} => ${document.data}")
 
-                    currentProfile = document.toObject(Profile::class.java)
+                    updateCurrentProfile(currentProfile, document.data)
 
-                    //rndWeight = document.getField<String>("weight").toString()
-                    //currentProfile.weight = document["weight"].toString().toInt()
+                    weightEditText.text.append(currentProfile.weight.toString())
+                    heightEditText.text.append(currentProfile.height.toString())
+                    ageEditText.text.append(currentProfile.age.toString())
+                    calorieIntakeEditText.text.append(currentProfile.calorieIntake.toString())
 
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
-
-        var rndWeight = currentProfile.weight.toString()
-
-        weightEditText.text.append(rndWeight)
-
 
         saveChangesButton.setOnClickListener {
 
@@ -81,7 +77,6 @@ class profileFragment : Fragment() {
 
                     )
 
-                    // Add a new document with a generated ID
                     db.collection("profiles")
                         .add(profile)
                         .addOnSuccessListener { documentReference ->
@@ -95,6 +90,7 @@ class profileFragment : Fragment() {
         return view
     }
 
+
     fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
         val formatter = SimpleDateFormat(format, locale)
         return formatter.format(this)
@@ -102,6 +98,17 @@ class profileFragment : Fragment() {
 
     fun getCurrentDateTime(): Date {
         return Calendar.getInstance().time
+    }
+
+    fun updateCurrentProfile(currentProfile: Profile, data: MutableMap<String, Any>){
+        if (!data.isEmpty()){
+            currentProfile.weight=data.get("weight").toString().toInt()
+            currentProfile.height=data.get("height").toString().toInt()
+            currentProfile.age=data.get("age").toString().toInt()
+            currentProfile.calorieIntake=data.get("calorieIntake").toString().toInt()
+            currentProfile.gender= if (data.get("gender").toString().equals("male")) Gender.MALE else Gender.FEMALE
+            //currentProfile.timestamp = LocalDateTime.parse(data.get("timestamp").toCharArray())
+        }
     }
 
 }
