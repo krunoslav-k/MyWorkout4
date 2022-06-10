@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.fragment)
 
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.profileFragment, R.id.logFragment, R.id.historyFragment))
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        //setupActionBarWithNavController(navController, appBarConfiguration)
+        //linija komentirana jer sam u themes.xml promijenio u NoActionBar => https://stackoverflow.com/questions/47951491/app-crashes-after-chaning-theme-to-noactionbar
 
         bottomNavigationView.setupWithNavController(navController)
 

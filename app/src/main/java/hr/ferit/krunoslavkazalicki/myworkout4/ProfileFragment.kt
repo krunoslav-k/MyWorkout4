@@ -1,15 +1,14 @@
 package hr.ferit.krunoslavkazalicki.myworkout4
 
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioGroup
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
@@ -30,13 +29,16 @@ class profileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
-
         val weightEditText = view.findViewById<EditText>(R.id.weight_etnum)
         val heightEditText = view.findViewById<EditText>(R.id.height_etnum)
         val genderRadioGroup = view.findViewById<RadioGroup>(R.id.gender_rg)
+        val maleRadioButton = view.findViewById<RadioButton>(R.id.male_rb)
+        val femaleRadioButton = view.findViewById<RadioButton>(R.id.female_rb)
         val ageEditText = view.findViewById<EditText>(R.id.age_etnum)
         val calorieIntakeEditText =  view.findViewById<EditText>(R.id.caloriesIntake_etnum)
         val saveChangesButton = view.findViewById<Button>(R.id.saveChanges_btn)
+        val sharedPreferences: SharedPreferences? = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val editor:SharedPreferences.Editor? = sharedPreferences?.edit()
 
         var currentProfile = Profile(0, 30, 0, Gender.MALE, 0, Date(1990, 1, 1))
         db.collection("profiles")
@@ -52,6 +54,11 @@ class profileFragment : Fragment() {
                     heightEditText.text.append(currentProfile.height.toString())
                     ageEditText.text.append(currentProfile.age.toString())
                     calorieIntakeEditText.text.append(currentProfile.calorieIntake.toString())
+                    if (currentProfile.gender == Gender.MALE){
+                        genderRadioGroup.check(R.id.male_rb)
+                    } else if (currentProfile.gender == Gender.FEMALE){
+                        genderRadioGroup.check(R.id.female_rb)
+                    }
 
                 }
             }
@@ -59,33 +66,58 @@ class profileFragment : Fragment() {
                 Log.w(TAG, "Error getting documents.", exception)
             }
 
+
         saveChangesButton.setOnClickListener {
 
-                    var weight = weightEditText.text.toString().toInt()
-                    var height = heightEditText.text.toString().toInt()
-                    var gender = "male"
-                    var age = ageEditText.text.toString().toInt()
-                    val calorieIntake = calorieIntakeEditText.text.toString().toInt()
+            var weight = weightEditText.text.toString().toInt()
+            var height = heightEditText.text.toString().toInt()
+            var age = ageEditText.text.toString().toInt()
+            var calorieIntake = calorieIntakeEditText.text.toString().toInt()
+            var gender = Gender.MALE
 
-                    val profile = hashMapOf(
-                        "weight" to weight,
-                        "height" to height,
-                        "gender" to gender,
-                        "age" to age,
-                        "calorieIntake" to calorieIntake,
-                        "timestamp" to getCurrentDateTime()
+            genderRadioGroup.setOnCheckedChangeListener { radioGroup, checkedId ->
+                val radio = view.findViewById<RadioButton>(checkedId)
 
-                    )
-
-                    db.collection("profiles")
-                        .add(profile)
-                        .addOnSuccessListener { documentReference ->
-                            Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w(TAG, "Error adding document", e)
-                        }
+                when (radio) {
+                    maleRadioButton -> {
+                        editor.apply {
+                            this?.putString("genderSP", "male")
+                        }?.apply()
+                    }
+                    femaleRadioButton -> {
+                        editor.apply {
+                            this?.putString("genderSP", "female")
+                        }?.apply()
+                    }
                 }
+            }
+
+            val checkedGender: String? = sharedPreferences?.getString("genderSP", "male")
+            if (checkedGender.equals("male")) {
+                gender = Gender.MALE
+            } else if (checkedGender.equals("female")) {
+                gender = Gender.FEMALE
+            }
+
+            val profile = hashMapOf(
+                "weight" to weight,
+                "height" to height,
+                "gender" to gender,
+                "age" to age,
+                "calorieIntake" to calorieIntake,
+                "timestamp" to getCurrentDateTime()
+
+            )
+
+            db.collection("profiles")
+                .add(profile)
+                .addOnSuccessListener { documentReference ->
+                    Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error adding document", e)
+                }
+        }
 
         return view
     }
@@ -106,10 +138,19 @@ class profileFragment : Fragment() {
             currentProfile.height=data.get("height").toString().toInt()
             currentProfile.age=data.get("age").toString().toInt()
             currentProfile.calorieIntake=data.get("calorieIntake").toString().toInt()
-            currentProfile.gender= if (data.get("gender").toString().equals("male")) Gender.MALE else Gender.FEMALE
+
+            if (data.get("gender").toString().equals("male")) {
+                currentProfile.gender = Gender.MALE
+            } else if (data.get("gender").toString().equals("female")){
+                currentProfile.gender = Gender.FEMALE
+            }
+
             //currentProfile.timestamp = LocalDateTime.parse(data.get("timestamp").toCharArray())
         }
+
     }
+
+
 
 }
 

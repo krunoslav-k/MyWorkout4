@@ -47,4 +47,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="saveChanges">Save changes</string>
+    <string name="arms">Arms</string>
+    <string name="legs">Legs</string>
+    <string name="torso">Torso</string>
+    <string name="core">Core</string>
+    <string name="duration_mins">duration (mins)</string>
+    <string name="intensity_1_10">intensity (1-10)</string>
+    <string name="log_workout">log workout</string>
 </resources>

@@ -19,25 +19,25 @@
             android:id="@+id/arms_rb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Arms" />
+            android:text="@string/arms" />
 
         <RadioButton
             android:id="@+id/legs_rb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Legs" />
+            android:text="@string/legs" />
 
         <RadioButton
-            android:id="@+id/upperBody_rb"
+            android:id="@+id/torso_rb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upper body" />
+            android:text="@string/torso" />
 
         <RadioButton
-            android:id="@+id/lowerBody_rb"
+            android:id="@+id/core_rb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lower body" />
+            android:text="@string/core" />
 
     </RadioGroup>
 
@@ -49,7 +49,7 @@
         android:layout_marginTop="@dimen/M_distance"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="duration (mins)"
+        android:text="@string/duration_mins"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/muscleGroup_rg" />
 
@@ -61,7 +61,7 @@
         android:layout_marginTop="30dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="intensity (1-10)"
+        android:text="@string/intensity_1_10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/duration_etnum" />
 
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
-        android:text="log workout"
+        android:text="@string/log_workout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/intensity_etnum" />
 </androidx.constraintlayout.widget.ConstraintLayout>
