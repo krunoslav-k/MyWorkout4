@@ -8,7 +8,7 @@ import hr.ferit.krunoslavkazalicki.myworkout4.MuscleGroup
 import hr.ferit.krunoslavkazalicki.myworkout4.R
 import hr.ferit.krunoslavkazalicki.myworkout4.Workout
 
-class WorkoutRecyclerAdapter(private var workouts: ArrayList<Workout>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class WorkoutRecyclerAdapter(private var workouts: List<Workout>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     //lateinit var workouts: ArrayList<Workout>
 
@@ -29,7 +29,7 @@ class WorkoutRecyclerAdapter(private var workouts: ArrayList<Workout>): Recycler
         return workouts.size
     }
 
-    fun updateWorkoutsList(newList: ArrayList<Workout>){
+    fun updateWorkoutsList(newList: List<Workout>){
         workouts = newList
     }
 
@@ -47,13 +47,13 @@ class WorkoutRecyclerAdapter(private var workouts: ArrayList<Workout>): Recycler
             muscleGroupTextView.text = workout.muscleGroup.toString()
             loadTextView.text = workout.load.toString()
             dateTextView.text = workout.timestamp.toString()
-
+/*
             when (workout.muscleGroup) {
                 MuscleGroup.ARMS -> workoutImage.setImageResource(R.drawable.arms)
                 MuscleGroup.TORSO -> workoutImage.setImageResource(R.drawable.torso)
                 MuscleGroup.CORE -> workoutImage.setImageResource(R.drawable.core)
                 MuscleGroup.LEGS -> workoutImage.setImageResource(R.drawable.legs)
-            }
+            }*/
 
         }
     }

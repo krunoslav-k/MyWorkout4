@@ -2,6 +2,7 @@ package hr.ferit.krunoslavkazalicki.myworkout4
 
 import WorkoutRecyclerAdapter
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,23 @@ class HistoryFragment : Fragment() {
         workoutRecyclerAdapter = WorkoutRecyclerAdapter(workoutArrayList)
         recyclerView.adapter = workoutRecyclerAdapter
 
+
+/*
+        db.collection("workouts")
+            .addSnapshotListener { value, error ->
+                if (error == null) {
+                    val values: List<Workout> = value!!.toObjects(Workout::class.java)
+                    view.findViewById<RecyclerView>(R.id.recyclerView)
+                        .apply {
+                            layoutManager = LinearLayoutManager(this@HistoryFragment.context)
+                            adapter = WorkoutRecyclerAdapter(values)
+                        }
+                }
+                else {
+                    Log.e("FIRESTORE ERROR", error.message.toString())
+                }
+            }
+*/
 
 
         return view

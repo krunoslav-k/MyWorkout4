@@ -48,8 +48,8 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="@dimen/M_distance"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/duration_mins"
+        android:inputType="number"
+        android:hint="@string/duration_mins"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/muscleGroup_rg" />
 
@@ -60,8 +60,8 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/intensity_1_10"
+        android:inputType="number"
+        android:hint="@string/intensity_1_10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/duration_etnum" />
 

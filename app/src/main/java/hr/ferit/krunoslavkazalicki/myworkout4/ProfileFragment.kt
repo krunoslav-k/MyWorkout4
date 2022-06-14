@@ -19,7 +19,6 @@ import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
 
-
 class profileFragment : Fragment() {
 
     val db = Firebase.firestore
@@ -28,6 +27,7 @@ class profileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
         val weightEditText = view.findViewById<EditText>(R.id.weight_etnum)
         val heightEditText = view.findViewById<EditText>(R.id.height_etnum)
@@ -41,6 +41,7 @@ class profileFragment : Fragment() {
         val editor:SharedPreferences.Editor? = sharedPreferences?.edit()
 
         var currentProfile = Profile()
+
         db.collection("profiles")
             .orderBy("timestamp", Query.Direction.DESCENDING).limit(1)
             .get()
