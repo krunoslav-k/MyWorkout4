@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
+import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -50,9 +51,12 @@ class logFragment : Fragment() {
                 for (document in result) {
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
 
-                    updateCurrentProfile(currentProfile, document.data)
-                    //funkcije za spremanje vrijednosti iz fieldova iz firebasea
-                    Log.d(TAG, "UNUTAR ADDONSUCCESS LISTENERA: ${currentProfile.weight}")
+                    editor.apply { this?.putString("weightProfileSP", "${document.data.get("weight").toString().toInt()}") }
+                    editor.apply { this?.putString("heightProfileSP", "${document.data.get("height").toString().toInt()}") }
+                    editor.apply { this?.putString("ageProfileSP", "${document.data.get("age").toString().toInt()}") }
+                    editor.apply { this?.putString("calorieIntakeProfileSP", "${document.data.get("calorieIntake").toString().toInt()}") }
+                    editor.apply { this?.putString("weightProfileSP", "${document.data.get("weight").toString().toInt()}") }
+                    editor.apply { this?.putString("genderProfileSP", "${document.data.get("gender").toString().toInt()}") }
 
                 }
             }
@@ -60,7 +64,15 @@ class logFragment : Fragment() {
                 Log.w(ContentValues.TAG, "Error getting documents.", exception)
             }
 
-        Log.d(TAG, "IZVAN ADDONSUCCESS LISTENERA: ${currentProfile.weight}")
+        var profile = Profile(
+            sharedPreferences?.getString("heightProfileSP", "80")?.toInt(),
+            sharedPreferences?.getString("weightProfileSP", "80")?.toInt(),
+            sharedPreferences?.getString("ageProfileSP", "80")?.toInt(),
+            Gender.MALE,
+            sharedPreferences?.getString("calorieIntakeProfileSP", "1800")?.toInt(),
+            null)
+
+        Log.d(TAG, "SAD JE PFRL ${profile.calorieIntake}")
 
         logWorkoutButton.setOnClickListener {
 
