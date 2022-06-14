@@ -22,12 +22,6 @@
             android:text="@string/arms" />
 
         <RadioButton
-            android:id="@+id/legs_rb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/legs" />
-
-        <RadioButton
             android:id="@+id/torso_rb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,6 +32,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/core" />
+
+        <RadioButton
+            android:id="@+id/legs_rb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/legs" />
 
     </RadioGroup>
 

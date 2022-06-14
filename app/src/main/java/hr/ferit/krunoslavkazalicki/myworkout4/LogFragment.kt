@@ -2,6 +2,8 @@ package hr.ferit.krunoslavkazalicki.myworkout4
 
 import android.content.ContentValues
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -30,9 +32,15 @@ class logFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_log, container, false)
 
         val muscleGroupRadioGroup = view.findViewById<RadioGroup>(R.id.muscleGroup_rg)
+        val armsRadioButton = view.findViewById<RadioButton>(R.id.arms_rb)
+        val torsoRadioButton = view.findViewById<RadioButton>(R.id.torso_rb)
+        val coreRadioButton = view.findViewById<RadioButton>(R.id.core_rb)
+        val legsRadioButton = view.findViewById<RadioButton>(R.id.legs_rb)
         val durationEditText = view.findViewById<EditText>(R.id.duration_etnum)
         val intensityEditText = view.findViewById<EditText>(R.id.intensity_etnum)
         val logWorkoutButton = view.findViewById<Button>(R.id.logWorkout_btn)
+        val sharedPreferences: SharedPreferences? = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
 
         var currentProfile = Profile()
         db.collection("profiles")
@@ -58,37 +66,47 @@ class logFragment : Fragment() {
 
             var duration = durationEditText.text.toString().toInt()
             var intensity = intensityEditText.text.toString().toInt()
+            var muscleGroup = MuscleGroup.TORSO
 
-  /*          muscleGroupRadioGroup.setOnCheckedChangeListener { radioGroup, checkedId ->
+            muscleGroupRadioGroup.setOnCheckedChangeListener { radioGroup, checkedId ->
                 val radio = view.findViewById<RadioButton>(checkedId)
 
                 when (radio) {
-                    maleRadioButton -> {
+                    armsRadioButton -> {
                         editor.apply {
-                            this?.putString("genderSP", "male")
+                            this?.putString("muscleGroupSP", "arms")
                         }?.apply()
                     }
-                    femaleRadioButton -> {
+                    torsoRadioButton -> {
                         editor.apply {
-                            this?.putString("genderSP", "female")
+                            this?.putString("muscleGroupSP", "torso")
+                        }?.apply()
+                    }
+                    coreRadioButton -> {
+                        editor.apply {
+                            this?.putString("muscleGroupSP", "core")
+                        }?.apply()
+                    }
+                    legsRadioButton -> {
+                        editor.apply {
+                            this?.putString("muscleGroupSP", "legs")
                         }?.apply()
                     }
                 }
-
             }
 
-            val checkedGender: String? = sharedPreferences?.getString("genderSP", "male")
-            if (checkedGender.equals("male")) {
-                gender = Gender.MALE
-            } else if (checkedGender.equals("female")) {
-                gender = Gender.FEMALE
+            val checkedMuscleGroup: String? = sharedPreferences?.getString("muscleGroupSP", "torso")
+            if (checkedMuscleGroup.equals("arms")) {
+                muscleGroup = MuscleGroup.ARMS
+            } else if (checkedMuscleGroup.equals("torso")) {
+                muscleGroup = MuscleGroup.TORSO
+            } else if (checkedMuscleGroup.equals("core")) {
+                muscleGroup = MuscleGroup.CORE
+            } else if (checkedMuscleGroup.equals("legs")) {
+                muscleGroup = MuscleGroup.LEGS
             }
-            */
 
-            var currentWorkout = Workout(duration = duration, intensity = intensity, timestamp = getCurrentDateTime())
-            currentWorkout.muscleGroup = MuscleGroup.ARMS
-            currentWorkout.load = 560
-
+            var currentWorkout = Workout(muscleGroup, duration, intensity, 50, getCurrentDateTime())
 
             val workout = hashMapOf(
                 "duration" to currentWorkout.duration,
@@ -109,6 +127,11 @@ class logFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun calculateLoad(profile: Profile): Int? {
+        TODO("Not yet implemented")
+        return 50
     }
 
 
