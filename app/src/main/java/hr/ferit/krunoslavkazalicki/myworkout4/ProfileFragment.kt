@@ -40,7 +40,7 @@ class profileFragment : Fragment() {
         val sharedPreferences: SharedPreferences? = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val editor:SharedPreferences.Editor? = sharedPreferences?.edit()
 
-        var currentProfile = Profile(0, 30, 0, Gender.MALE, 0, Date(1990, 1, 1))
+        var currentProfile = Profile()
         db.collection("profiles")
             .orderBy("timestamp", Query.Direction.DESCENDING).limit(1)
             .get()

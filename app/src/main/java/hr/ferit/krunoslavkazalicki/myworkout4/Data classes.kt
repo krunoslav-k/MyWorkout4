@@ -12,17 +12,18 @@ enum class MuscleGroup {
 }
 
 data class Profile(
-    var height: Int,
-    var weight: Int,
-    var age: Int,
-    var gender: Gender,
-    var calorieIntake: Int,
-    var timestamp: Date
+    var height: Int? = null,
+    var weight: Int? = null,
+    var age: Int? = null,
+    var gender: Gender? = null,
+    var calorieIntake: Int? = null,
+    var timestamp: Date? = null
 )
 
 data class Workout(
-    val muscleGroup: MuscleGroup,
-    val duration: Int,
-    val intensity: Int,
-    var timestamp: Date
+    var muscleGroup: MuscleGroup? = null,
+    var duration: Int? = null,
+    var intensity: Int? = null,
+    var load: Int? = null,
+    var timestamp: Date? = null
 )
