@@ -51,13 +51,12 @@ class logFragment : Fragment() {
                 for (document in result) {
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
 
-                    editor.apply { this?.putString("weightProfileSP", "${document.data.get("weight").toString().toInt()}") }
-                    editor.apply { this?.putString("heightProfileSP", "${document.data.get("height").toString().toInt()}") }
-                    editor.apply { this?.putString("ageProfileSP", "${document.data.get("age").toString().toInt()}") }
-                    editor.apply { this?.putString("calorieIntakeProfileSP", "${document.data.get("calorieIntake").toString().toInt()}") }
-                    editor.apply { this?.putString("weightProfileSP", "${document.data.get("weight").toString().toInt()}") }
-                    editor.apply { this?.putString("genderProfileSP", "${document.data.get("gender").toString().toInt()}") }
-
+                    editor.apply { this?.putString("weightProfileSP", document.data.get("weight").toString()) }
+                    editor.apply { this?.putString("heightProfileSP", document.data.get("height").toString()) }
+                    editor.apply { this?.putString("ageProfileSP", document.data.get("age").toString()) }
+                    editor.apply { this?.putString("calorieIntakeProfileSP", document.data.get("calorieIntake").toString()) }
+                    editor.apply { this?.putString("weightProfileSP", document.data.get("weight").toString()) }
+                    editor.apply { this?.putString("genderProfileSP", document.data.get("gender").toString()) }
                 }
             }
             .addOnFailureListener { exception ->
@@ -164,15 +163,14 @@ class logFragment : Fragment() {
             currentProfile.age=data.get("age").toString().toInt()
             currentProfile.calorieIntake=data.get("calorieIntake").toString().toInt()
 
-            if (data.get("gender").toString().equals("male")) {
+            if (data.get("gender").toString() == "MALE") {
                 currentProfile.gender = Gender.MALE
-            } else if (data.get("gender").toString().equals("female")){
+            } else if (data.get("gender").toString() == "FEMALE"){
                 currentProfile.gender = Gender.FEMALE
             }
 
-            //currentProfile.timestamp = LocalDateTime.parse(data.get("timestamp").toCharArray())
         }
-        }
+    }
 
 
 }
