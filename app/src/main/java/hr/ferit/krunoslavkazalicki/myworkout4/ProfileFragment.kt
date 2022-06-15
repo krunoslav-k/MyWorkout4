@@ -134,19 +134,18 @@ class profileFragment : Fragment() {
     }
 
     fun updateCurrentProfile(currentProfile: Profile, data: MutableMap<String, Any>){
+
         if (!data.isEmpty()){
             currentProfile.weight=data.get("weight").toString().toInt()
             currentProfile.height=data.get("height").toString().toInt()
             currentProfile.age=data.get("age").toString().toInt()
             currentProfile.calorieIntake=data.get("calorieIntake").toString().toInt()
 
-            if (data.get("gender").toString().equals("male")) {
+            if (data.get("gender").toString() == "MALE") {
                 currentProfile.gender = Gender.MALE
-            } else if (data.get("gender").toString().equals("female")){
+            } else if (data.get("gender").toString() == "FEMALE"){
                 currentProfile.gender = Gender.FEMALE
             }
-
-            //currentProfile.timestamp = LocalDateTime.parse(data.get("timestamp").toCharArray())
         }
 
     }
