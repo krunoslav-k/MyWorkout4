@@ -1,12 +1,11 @@
+package hr.ferit.krunoslavkazalicki.myworkout4
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import hr.ferit.krunoslavkazalicki.myworkout4.MuscleGroup
-import hr.ferit.krunoslavkazalicki.myworkout4.R
-import hr.ferit.krunoslavkazalicki.myworkout4.Workout
 
 class WorkoutRecyclerAdapter(private var workouts: List<Workout>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

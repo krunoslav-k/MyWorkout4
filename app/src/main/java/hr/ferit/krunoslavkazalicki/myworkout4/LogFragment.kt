@@ -4,7 +4,6 @@ import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
-import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -27,8 +26,8 @@ class logFragment : Fragment() {
     val db = Firebase.firestore
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_log, container, false)
 
@@ -43,38 +42,9 @@ class logFragment : Fragment() {
         val sharedPreferences: SharedPreferences? = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
 
-        var currentProfile = Profile()
-        db.collection("profiles")
-            .orderBy("timestamp", Query.Direction.DESCENDING).limit(1)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-
-                    editor.apply { this?.putString("weightProfileSP", document.data.get("weight").toString()) }
-                    editor.apply { this?.putString("heightProfileSP", document.data.get("height").toString()) }
-                    editor.apply { this?.putString("ageProfileSP", document.data.get("age").toString()) }
-                    editor.apply { this?.putString("calorieIntakeProfileSP", document.data.get("calorieIntake").toString()) }
-                    editor.apply { this?.putString("weightProfileSP", document.data.get("weight").toString()) }
-                    editor.apply { this?.putString("genderProfileSP", document.data.get("gender").toString()) }
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w(ContentValues.TAG, "Error getting documents.", exception)
-            }
-
-        var profile = Profile(
-            sharedPreferences?.getString("heightProfileSP", "80")?.toInt(),
-            sharedPreferences?.getString("weightProfileSP", "80")?.toInt(),
-            sharedPreferences?.getString("ageProfileSP", "80")?.toInt(),
-            Gender.MALE,
-            sharedPreferences?.getString("calorieIntakeProfileSP", "1800")?.toInt(),
-            null)
-
-        Log.d(TAG, "SAD JE PFRL ${profile.calorieIntake}")
-
         logWorkoutButton.setOnClickListener {
 
+            //učitavanje parametara workout-a
             var duration = durationEditText.text.toString().toInt()
             var intensity = intensityEditText.text.toString().toInt()
             var muscleGroup = MuscleGroup.TORSO
@@ -117,32 +87,97 @@ class logFragment : Fragment() {
                 muscleGroup = MuscleGroup.LEGS
             }
 
-            var currentWorkout = Workout(muscleGroup, duration, intensity, 50, getCurrentDateTime())
+            //učitavanje profila i izračun opterečenja workouta
 
-            val workout = hashMapOf(
-                "duration" to currentWorkout.duration,
-                "intensity" to currentWorkout.intensity,
-                "load" to currentWorkout.load,
-                "muscleGroup" to currentWorkout.muscleGroup,
-                "timestamp" to currentWorkout.timestamp
-            )
+            db.collection("profiles")
+                    .orderBy("timestamp", Query.Direction.DESCENDING).limit(1)
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) {
+                            Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
 
-            db.collection("workouts")
-                .add(workout)
-                .addOnSuccessListener { documentReference ->
-                    Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Error adding document", e)
-                }
+                            var gender : Gender = Gender.MALE
+                            if (document.data.get("gender").toString() == "MALE") {
+                                gender = Gender.MALE
+                            } else if (document.data.get("gender").toString() == "FEMALE"){
+                                gender = Gender.FEMALE
+                            }
+
+                            var profile = Profile(
+                                    document.data.get("height").toString().toInt(),
+                                    document.data.get("weight").toString().toInt(),
+                                    document.data.get("age").toString().toInt(),
+                                    gender,
+                                    document.data.get("calorieIntake").toString().toInt(),
+                                    null
+                            )
+
+                            var currentWorkout = Workout(muscleGroup, duration, intensity, calculateLoad(profile, muscleGroup, duration, intensity), getCurrentDateTime())
+
+                            val workout = hashMapOf(
+                                    "duration" to currentWorkout.duration,
+                                    "intensity" to currentWorkout.intensity,
+                                    "load" to currentWorkout.load,
+                                    "muscleGroup" to currentWorkout.muscleGroup,
+                                    "timestamp" to currentWorkout.timestamp
+                            )
+
+                            db.collection("workouts")
+                                    .add(workout)
+                                    .addOnSuccessListener { documentReference ->
+                                        Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Log.w(TAG, "Error adding document", e)
+                                    }
+
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w(ContentValues.TAG, "Error getting documents.", exception)
+                    }
+
         }
 
         return view
     }
 
-    private fun calculateLoad(profile: Profile): Int? {
-        TODO("Not yet implemented")
-        return 50
+    private fun calculateLoad(profile: Profile, muscleGroup: MuscleGroup, duration: Int, intensity: Int): Int? {
+
+        var genderFactor: Double = 1.0
+        var basalMetabolicRate: Double = 1500.0
+
+        when (profile.gender) {
+            Gender.MALE -> {
+                genderFactor = 1.12
+                basalMetabolicRate = 13.397 * profile.weight!! + 4.799 * profile.height!! - 5.677 * profile.age!! + 88.362
+            }
+            Gender.FEMALE -> {
+                genderFactor = 0.94
+                basalMetabolicRate = 9.247 * profile.weight!! + 3.098 * profile.height!! - 4.330 * profile.age!! + 447.593
+            }
+        }
+
+        var muscleGroupFactor: Double = 1.0
+
+        when (muscleGroup) {
+            MuscleGroup.ARMS -> muscleGroupFactor = 0.22
+            MuscleGroup.TORSO -> muscleGroupFactor = 0.427
+            MuscleGroup.CORE -> muscleGroupFactor = 0.19
+            MuscleGroup.LEGS -> muscleGroupFactor = 0.363
+        }
+
+        var calorieIntakeFactor: Double = 1.0
+
+        if (profile.calorieIntake!! - basalMetabolicRate < 0) {
+            calorieIntakeFactor = 0.95
+        } else if (profile.calorieIntake!! - basalMetabolicRate < 500) {
+            calorieIntakeFactor = 1.02
+        } else if (profile.calorieIntake!! - basalMetabolicRate > 500) {
+            calorieIntakeFactor = 1.05
+        }
+
+        return (muscleGroupFactor * profile.weight!! * genderFactor * (intensity/5) * duration * calorieIntakeFactor).toInt()
     }
 
 
@@ -155,22 +190,6 @@ class logFragment : Fragment() {
         return Calendar.getInstance().time
     }
 
-
-    fun updateCurrentProfile(currentProfile: Profile, data: MutableMap<String, Any>){
-        if (!data.isEmpty()){
-            currentProfile.weight=data.get("weight").toString().toInt()
-            currentProfile.height=data.get("height").toString().toInt()
-            currentProfile.age=data.get("age").toString().toInt()
-            currentProfile.calorieIntake=data.get("calorieIntake").toString().toInt()
-
-            if (data.get("gender").toString() == "MALE") {
-                currentProfile.gender = Gender.MALE
-            } else if (data.get("gender").toString() == "FEMALE"){
-                currentProfile.gender = Gender.FEMALE
-            }
-
-        }
-    }
 
 
 }

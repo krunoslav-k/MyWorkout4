@@ -1,8 +1,6 @@
 package hr.ferit.krunoslavkazalicki.myworkout4
 
-import WorkoutRecyclerAdapter
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +42,7 @@ class HistoryFragment : Fragment() {
                     view.findViewById<RecyclerView>(R.id.recyclerView)
                         .apply {
                             layoutManager = LinearLayoutManager(this@HistoryFragment.context)
-                            adapter = WorkoutRecyclerAdapter(values)
+                            adapter = hr.ferit.krunoslavkazalicki.myworkout4.WorkoutRecyclerAdapter(values)
                         }
                 }
                 else {
