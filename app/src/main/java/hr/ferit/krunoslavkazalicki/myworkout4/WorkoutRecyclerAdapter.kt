@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class WorkoutRecyclerAdapter(private var workouts: List<Workout>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    //lateinit var workouts: ArrayList<Workout>
+    //private var workouts: List<Workout> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return WorkoutViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
@@ -28,7 +28,7 @@ class WorkoutRecyclerAdapter(private var workouts: List<Workout>): RecyclerView.
         return workouts.size
     }
 
-    fun updateWorkoutsList(newList: List<Workout>){
+    fun updateWorkoutsList(newList: ArrayList<Workout>){
         workouts = newList
     }
 
@@ -41,18 +41,18 @@ class WorkoutRecyclerAdapter(private var workouts: List<Workout>): RecyclerView.
         private val dateTextView: TextView = itemView.findViewById(R.id.date_tv)
 
         fun bind(workout: Workout) {
-            durationTextView.text = workout.duration.toString()
-            intensityTextView.text = workout.intensity.toString()
+            durationTextView.text = "${workout.duration.toString()} mins"
+            intensityTextView.text = "${workout.intensity.toString()}/10 intensity"
             muscleGroupTextView.text = workout.muscleGroup.toString()
-            loadTextView.text = workout.load.toString()
-            dateTextView.text = workout.timestamp.toString()
-/*
+            loadTextView.text = "Load: ${workout.load.toString()} kgmin"
+            dateTextView.text = "${workout.timestamp.toString()}"
+
             when (workout.muscleGroup) {
                 MuscleGroup.ARMS -> workoutImage.setImageResource(R.drawable.arms)
                 MuscleGroup.TORSO -> workoutImage.setImageResource(R.drawable.torso)
                 MuscleGroup.CORE -> workoutImage.setImageResource(R.drawable.core)
                 MuscleGroup.LEGS -> workoutImage.setImageResource(R.drawable.legs)
-            }*/
+            }
 
         }
     }
