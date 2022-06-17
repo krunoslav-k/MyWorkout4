@@ -88,7 +88,6 @@ class logFragment : Fragment() {
             }
 
             //učitavanje profila i izračun opterečenja workouta
-
             db.collection("profiles")
                     .orderBy("timestamp", Query.Direction.DESCENDING).limit(1)
                     .get()

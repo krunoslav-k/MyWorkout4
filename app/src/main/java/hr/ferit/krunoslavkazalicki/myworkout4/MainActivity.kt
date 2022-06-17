@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val db = Firebase.firestore
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val navController = findNavController(R.id.fragment)
 
@@ -25,7 +24,5 @@ class MainActivity : AppCompatActivity() {
         //linija komentirana jer sam u themes.xml promijenio u NoActionBar => https://stackoverflow.com/questions/47951491/app-crashes-after-chaning-theme-to-noactionbar
 
         bottomNavigationView.setupWithNavController(navController)
-
-
     }
 }

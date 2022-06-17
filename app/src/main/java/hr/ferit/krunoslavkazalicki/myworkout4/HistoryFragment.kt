@@ -31,6 +31,7 @@ class HistoryFragment : Fragment() {
             .get()
             .addOnSuccessListener { result ->
                 val workouts: MutableList<Workout> = ArrayList<Workout>()
+
                 for (document in result) {
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
 
@@ -64,7 +65,5 @@ class HistoryFragment : Fragment() {
 
         return view
     }
-
-
 
 }

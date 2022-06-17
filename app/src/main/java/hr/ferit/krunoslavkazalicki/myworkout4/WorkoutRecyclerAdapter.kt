@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 class WorkoutRecyclerAdapter(private var workouts: List<Workout>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    //private var workouts: List<Workout> = ArrayList()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return WorkoutViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
     }

@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".logFragment">
 
+    <TextView
+        android:id="@+id/logWorkout_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/M_indentation"
+        android:layout_marginTop="@dimen/big_distance"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/log_workout_title"
+        android:textColor="@color/gray_blue"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <RadioGroup
         android:id="@+id/muscleGroup_rg"
         android:layout_width="wrap_content"
@@ -15,53 +28,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <RadioButton
-            android:id="@+id/arms_rb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/arms" />
-
-        <RadioButton
-            android:id="@+id/torso_rb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/torso" />
-
-        <RadioButton
-            android:id="@+id/core_rb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/core" />
-
-        <RadioButton
-            android:id="@+id/legs_rb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/legs" />
-
     </RadioGroup>
 
     <EditText
         android:id="@+id/duration_etnum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="@dimen/M_distance"
+        android:layout_marginTop="36dp"
         android:ems="10"
-        android:inputType="number"
+        android:fontFamily="@font/poppins_medium"
         android:hint="@string/duration_mins"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/muscleGroup_rg" />
+        app:layout_constraintTop_toBottomOf="@+id/legs_rb" />
 
     <EditText
         android:id="@+id/intensity_etnum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
-        android:inputType="number"
+        android:fontFamily="@font/poppins_medium"
         android:hint="@string/intensity_1_10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/duration_etnum" />
 
@@ -69,9 +60,62 @@
         android:id="@+id/logWorkout_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/poppins_medium"
         android:text="@string/log_workout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/intensity_etnum" />
+
+    <RadioButton
+        android:id="@+id/arms_rb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/arms"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <RadioButton
+        android:id="@+id/torso_rb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/torso"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arms_rb" />
+
+    <RadioButton
+        android:id="@+id/core_rb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/core"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/torso_rb" />
+
+    <RadioButton
+        android:id="@+id/legs_rb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/legs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/core_rb" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/choose_trained_muscle_group"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logWorkout_tv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

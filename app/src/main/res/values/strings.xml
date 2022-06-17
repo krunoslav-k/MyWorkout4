@@ -54,4 +54,7 @@
     <string name="duration_mins">duration (mins)</string>
     <string name="intensity_1_10">intensity (1-10)</string>
     <string name="log_workout">log workout</string>
+    <string name="choose_trained_muscle_group">Choose trained muscle group</string>
+    <string name="log_workout_title">Log Workout</string>
+    <string name="workout_history">Workout History</string>
 </resources>
