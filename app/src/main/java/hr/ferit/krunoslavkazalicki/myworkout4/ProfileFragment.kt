@@ -29,6 +29,7 @@ class profileFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        val numberOfWorkoutsTextView = view.findViewById<TextView>(R.id.numOfWorkouts_tv)
         val weightEditText = view.findViewById<EditText>(R.id.weight_etnum)
         val heightEditText = view.findViewById<EditText>(R.id.height_etnum)
         val genderRadioGroup = view.findViewById<RadioGroup>(R.id.gender_rg)
@@ -66,6 +67,25 @@ class profileFragment : Fragment() {
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
+
+        db.collection("workouts")
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        var count = 0
+                        task.result?.let {
+                            for (snapshot in it) {
+                                count++
+                            }
+                            numberOfWorkoutsTextView.text= count.toString()
+                        }
+                        print("count: $count")
+                    } else {
+                        task.exception?.message?.let {
+                            Log.d(TAG, "Error accessing firebase")
+                        }
+                    }
+                }
 
 
         saveChangesButton.setOnClickListener {
